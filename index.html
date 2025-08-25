@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiddenGems - Talent Beyond the Spotlight</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <video autoplay muted loop class="hero-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-ball-on-green-grass-4065-large.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title fade-in">
+                    <span class="gradient-text">Hidden</span>Gems
+                </h1>
+                <p class="hero-tagline fade-in-delay">
+                    Uncovering the talent the world hasn't seen yet.
+                </p>
+                <button class="cta-button fade-in-delay-2" onclick="scrollToSection('survey')">
+                    Take the Survey
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots">
+        <a href="#hero" class="nav-dot active" data-section="hero"></a>
+        <a href="#problem" class="nav-dot" data-section="problem"></a>
+        <a href="#vision" class="nav-dot" data-section="vision"></a>
+        <a href="#survey" class="nav-dot" data-section="survey"></a>
+    </nav>
+
+    <!-- The Motive (Problem Statement) -->
+    <section id="problem" class="section problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Hidden Reality</h2>
+                <p class="section-subtitle">Thousands of talented players remain invisible to the football world</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">of aspiring footballers ever get scouted</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-unit">+</div>
+                    <div class="stat-label">talented players go unnoticed annually</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-number" data-target="95">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">never step into the professional spotlight</div>
+                </div>
+            </div>
+
+            <div class="problem-story">
+                <div class="story-content">
+                    <h3>Every neighborhood has its heroes</h3>
+                    <p>In dusty local pitches and community centers across the world, extraordinary talent emerges daily. Young players with lightning speed, perfect ball control, and natural instincts that could rival the pros. Yet most will never be seen by scouts, never get trials, and never realize their potential.</p>
+                    <p>The current system misses too many gems, leaving brilliance buried in obscurity.</p>
+                </div>
+                <div class="story-visual">
+                    <div class="player-silhouette"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Brighter Side (Our Vision) -->
+    <section id="vision" class="section vision-section">
+        <div class="vision-background">
+            <div class="stadium-lights"></div>
+        </div>
+        <div class="container">
+            <div class="vision-content">
+                <h2 class="vision-title">Every Hidden Gem Deserves a Chance to Shine</h2>
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Discover</h3>
+                        <p>Using technology and community insights to identify overlooked talent across all levels of football.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Elevate</h3>
+                        <p>Connecting hidden gems with opportunities, training programs, and pathways to professional football.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Celebrate</h3>
+                        <p>Showcasing incredible talent that deserves recognition and creating stories of success from the ground up.</p>
+                    </div>
+                </div>
+                
+                <div class="vision-statement">
+                    <p>HiddenGems isn't just about finding players—it's about building a future where talent, not luck, determines who gets to chase their dreams on the biggest stages.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section id="survey" class="section survey-section">
+        <div class="container">
+            <div class="survey-header">
+                <h2 class="survey-title">Join the Movement — Share Your Voice</h2>
+                <p class="survey-description">Help us understand the football landscape and identify what's needed to uncover hidden talent. Your insights will shape the future of football discovery.</p>
+            </div>
+            
+            <div class="survey-container">
+                <form class="survey-form" id="hiddengems-survey">
+                    <div class="form-group">
+                        <label for="role">What's your connection to football?</label>
+                        <select id="role" name="role" required>
+                            <option value="">Select your role</option>
+                            <option value="player">Player</option>
+                            <option value="coach">Coach</option>
+                            <option value="scout">Scout</option>
+                            <option value="parent">Parent of a player</option>
+                            <option value="fan">Football fan</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">How long have you been involved in football?</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select experience</option>
+                            <option value="0-2">0-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="talent-discovery">Have you ever witnessed exceptional talent that went unnoticed?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="witnessed-yes" name="talent-discovery" value="yes" required>
+                            <label for="witnessed-yes">Yes</label>
+                            <input type="radio" id="witnessed-no" name="talent-discovery" value="no" required>
+                            <label for="witnessed-no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="barriers">What do you think are the biggest barriers preventing talented players from being discovered?</label>
+                        <textarea id="barriers" name="barriers" rows="4" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email (optional - to stay updated on HiddenGems)</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com">
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        Submit Survey
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing Call-to-Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="final-cta">
+                <h2>The future of football is waiting to be discovered.</h2>
+                <button class="cta-button secondary" onclick="scrollToSection('survey')">
+                    Take the Survey Now
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-tagline">HiddenGems — Talent Beyond the Spotlight.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
