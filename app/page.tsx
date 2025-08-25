@@ -17,6 +17,12 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [])
 
+  const handleBackToSurvey = () => {
+    setSurveySubmitted(false)
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   if (isLoading) {
     return (
               <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -37,7 +43,7 @@ export default function Home() {
           <SurveySection onSubmissionComplete={() => setSurveySubmitted(true)} />
         </>
       ) : (
-        <ThankYouSection />
+        <ThankYouSection onBack={handleBackToSurvey} />
       )}
     </main>
   )

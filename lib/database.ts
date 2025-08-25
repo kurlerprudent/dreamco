@@ -1,15 +1,17 @@
 import { MongoClient, Db } from 'mongodb'
 
-const uri = process.env.MONGODB_URI
-
-if (!uri) {
-  throw new Error('Please define the MONGODB_URI environment variable')
-}
-
 class DatabaseConnection {
   private static client: MongoClient | null = null
   private static db: Db | null = null
   private static isConnecting = false
+
+  private static getUri(): string {
+    const uri = process.env.MONGODB_URI
+    if (!uri) {
+      throw new Error('Please define the MONGODB_URI environment variable')
+    }
+    return uri
+  }
 
   static async getClient(): Promise<MongoClient> {
     // If we have a client, try to ping it to check if it's still connected
@@ -37,7 +39,8 @@ class DatabaseConnection {
     try {
       this.isConnecting = true
       
-      this.client = new MongoClient(uri!, {
+      const uri = this.getUri()
+      this.client = new MongoClient(uri, {
         maxPoolSize: 10,
         serverSelectionTimeoutMS: 5000,
         socketTimeoutMS: 45000,

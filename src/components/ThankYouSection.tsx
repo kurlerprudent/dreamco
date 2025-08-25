@@ -1,9 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CheckCircle, Heart, Star, Trophy } from 'lucide-react'
+import { CheckCircle, Heart, Star, Trophy, ArrowLeft } from 'lucide-react'
+import { Button } from './ui/button'
 
-export default function ThankYouSection() {
+interface ThankYouSectionProps {
+  onBack?: () => void
+}
+
+export default function ThankYouSection({ onBack }: ThankYouSectionProps) {
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center relative overflow-hidden">
       {/* Animated background elements */}
@@ -111,11 +116,30 @@ export default function ThankYouSection() {
             Watch this space for updates on how we're transforming African football!
           </motion.p>
 
+          {/* Back Button */}
+          {onBack && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2 }}
+              className="mb-8"
+            >
+              <Button
+                onClick={onBack}
+                variant="outline"
+                className="border-football-green text-football-green hover:bg-football-green hover:text-slate-900 transition-all duration-300 px-8 py-3 text-lg font-semibold rounded-full"
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Take Another Survey
+              </Button>
+            </motion.div>
+          )}
+
           {/* Footer tagline */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 2 }}
+            transition={{ duration: 1, delay: 2.2 }}
             className="pt-8 border-t border-football-green/30"
           >
             <p className="text-football-green font-bold text-xl">

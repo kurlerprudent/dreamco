@@ -1,18 +1,21 @@
 import { MongoClient, Db } from 'mongodb'
 
-const uri = process.env.MONGODB_URI
-
-if (!uri) {
-  throw new Error('Please define the MONGODB_URI environment variable')
-}
-
 class DatabaseConnection {
   private static client: MongoClient | null = null
   private static db: Db | null = null
 
+  private static getUri(): string {
+    const uri = process.env.MONGODB_URI
+    if (!uri) {
+      throw new Error('Please define the MONGODB_URI environment variable')
+    }
+    return uri
+  }
+
   static async getClient(): Promise<MongoClient> {
     if (!this.client) {
-      this.client = new MongoClient(uri!)
+      const uri = this.getUri()
+      this.client = new MongoClient(uri)
       await this.client.connect()
     }
     return this.client
