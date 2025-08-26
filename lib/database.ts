@@ -6,10 +6,7 @@ class DatabaseConnection {
   private static isConnecting = false
 
   private static getUri(): string {
-    const uri = process.env.MONGODB_URI
-    if (!uri) {
-      throw new Error('Please define the MONGODB_URI environment variable')
-    }
+    const uri = process.env.MONGODB_URI || 'mongodb+srv://prudentkurler8:dExMJ8GI5pJ6Ow6D@cluster0.akbcll1.mongodb.net/hiddengems?retryWrites=true&w=majority&appName=Cluster0'
     return uri
   }
 
