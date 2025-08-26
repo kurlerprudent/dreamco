@@ -1,19 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
-import DatabaseConnection from '@/lib/database'
+import DatabaseConnection from '../../../lib/database'
 
 export async function POST(request: NextRequest) {
+  console.log('Survey API called')
+  
   try {
     const body = await request.json()
+    console.log('Request body:', body)
     
     // Validate required fields
     if (!body.role || !body.responses) {
+      console.log('Missing required fields')
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
+    console.log('Attempting database connection...')
     const db = await DatabaseConnection.getDb()
+    console.log('Database connected successfully')
+    
     const collection = db.collection('survey_responses')
 
     const surveyResponse = {
