@@ -37,11 +37,11 @@ const roleQuestions: RoleQuestions[] = [
       
       // Opportunities & Exposure
       { id: 'trial_invitations', question: 'How many professional trials have you been invited to?', type: 'select', options: ['None', '1-2', '3-5', '6-10', 'More than 10'], required: true },
-      { id: 'scout_contact', question: 'Have scouts or agents ever contacted you?', type: 'select', options: ['Yes, multiple times', 'Yes, once or twice', 'Only informal interest', 'Never', 'Not sure'], required: true },
-      { id: 'video_portfolio', question: 'Do you have professional highlight videos?', type: 'select', options: ['Yes, professionally made', 'Yes, self-made', 'Basic phone recordings', 'No, but want to create', 'No, don\'t see the need'], required: true },
+      { id: 'scout_contact', question: 'Have scouts or agents ever contacted you?', type: 'boolean', required: true },
+      { id: 'video_portfolio', question: 'Do you have professional highlight videos?', type: 'boolean', required: true },
       
-      // Challenges & Barriers
-      { id: 'biggest_challenge', question: 'What is your biggest challenge in pursuing professional football?', type: 'select', options: ['Lack of exposure/visibility', 'Financial constraints', 'Poor facilities/infrastructure', 'Limited coaching quality', 'Family/social pressure', 'Academic commitments', 'Injury concerns', 'Age factor', 'Competition level'], required: true },
+      // Challenges & Barriers (Multiple Choice)
+      { id: 'biggest_challenges', question: 'What are your biggest challenges? (Select all that apply)', type: 'checkbox', options: ['Lack of exposure/visibility', 'Financial constraints', 'Poor facilities/infrastructure', 'Limited coaching quality', 'Family/social pressure', 'Academic commitments', 'Injury concerns', 'Competition level'], required: true },
       { id: 'financial_support', question: 'What level of financial support do you receive for football?', type: 'select', options: ['Full sponsorship/scholarship', 'Partial support', 'Family support only', 'Self-funded', 'No financial support'], required: true },
       { id: 'travel_limitations', question: 'How do travel costs affect your opportunities?', type: 'select', options: ['Not a problem', 'Minor limitation', 'Major barrier', 'Completely prevents opportunities', 'Never needed to travel'], required: true },
       
@@ -51,8 +51,8 @@ const roleQuestions: RoleQuestions[] = [
       { id: 'timeline_expectation', question: 'In how long do you expect to achieve your main goal?', type: 'select', options: ['Within 1 year', '1-2 years', '3-5 years', '5-10 years', 'No specific timeline', 'Unlikely to happen'], required: true },
       
       // Support System
-      { id: 'family_support', question: 'How supportive is your family of your football ambitions?', type: 'select', options: ['Extremely supportive', 'Very supportive', 'Moderately supportive', 'Neutral', 'Somewhat opposed', 'Strongly opposed'], required: true },
-      { id: 'mentor_availability', question: 'Do you have mentors or role models in football?', type: 'select', options: ['Yes, active mentors', 'Yes, role models I follow', 'Some guidance occasionally', 'No, but would like some', 'No, prefer to figure out myself'], required: true },
+      { id: 'family_support', question: 'Is your family supportive of your football ambitions?', type: 'boolean', required: true },
+      { id: 'mentor_availability', question: 'Do you have mentors or role models in football?', type: 'boolean', required: true },
       
       // Additional Insights
       { id: 'education_balance', question: 'How do you balance football with education/work?', type: 'select', options: ['Football is priority', 'Balanced approach', 'Education/work is priority', 'Struggling to balance', 'One interferes with other', 'Not applicable'], required: true },
@@ -122,7 +122,8 @@ const roleQuestions: RoleQuestions[] = [
       
       // Player Development
       { id: 'talent_identification', question: 'How do you identify talent in players?', type: 'select', options: ['Technical skills', 'Athletic ability', 'Game intelligence', 'Mental toughness', 'Work ethic', 'Leadership qualities', 'Combination of factors'], required: true },
-      { id: 'success_stories', question: 'Have any of your players achieved significant success?', type: 'select', options: ['Yes, multiple professionals', 'Yes, one professional', 'Semi-professional level', 'Regional/state level', 'Improved significantly', 'Not yet, but promising'], required: true },
+      { id: 'success_stories', question: 'Have any of your players achieved significant success?', type: 'boolean', required: true },
+      { id: 'use_video_analysis', question: 'Do you use video analysis in your coaching?', type: 'boolean', required: true },
       { id: 'player_progression', question: 'What percentage of your players show significant improvement?', type: 'select', options: ['More than 80%', '60-80%', '40-60%', '20-40%', 'Less than 20%', 'Hard to measure'], required: true },
       
       // Scouting & Exposure
@@ -163,7 +164,7 @@ const roleQuestions: RoleQuestions[] = [
       { id: 'age_focus', question: 'What age groups do you primarily scout?', type: 'select', options: ['Under 16', 'Under 18', 'Under 21', '18-23 years', '24+ years', 'All ages', 'Depends on assignment'], required: true },
       
       // Scouting Methods
-      { id: 'scouting_methods', question: 'What are your primary scouting methods?', type: 'select', options: ['Live match observation', 'Video analysis', 'Tournament scouting', 'Academy visits', 'Coach recommendations', 'Player databases', 'Social media research'], required: true },
+      { id: 'scouting_methods', question: 'What are your primary scouting methods? (Select all that apply)', type: 'checkbox', options: ['Live match observation', 'Video analysis', 'Tournament scouting', 'Academy visits', 'Coach recommendations', 'Player databases', 'Social media research'], required: true },
       { id: 'technology_usage', question: 'How much do you rely on technology for scouting?', type: 'select', options: ['Heavily technology-dependent', 'Moderate technology use', 'Basic tools only', 'Minimal technology', 'Traditional methods only'], required: true },
       { id: 'video_importance', question: 'How important is video footage in your evaluation process?', type: 'select', options: ['Essential, can\'t scout without it', 'Very important', 'Moderately important', 'Somewhat useful', 'Not very important', 'Prefer live observation'], required: true },
       
@@ -453,6 +454,45 @@ export default function SurveySection({ onSubmissionComplete }: SurveySectionPro
                               ))}
                             </SelectContent>
                           </Select>
+                        )}
+
+                        {question.type === 'boolean' && (
+                          <div className="flex items-center space-x-4">
+                            <label className="flex items-center space-x-2 cursor-pointer">
+                              <input
+                                type="radio"
+                                value="true"
+                                {...register(question.id, { required: question.required })}
+                                className="text-football-green focus:ring-football-green"
+                              />
+                              <span className="text-white">Yes</span>
+                            </label>
+                            <label className="flex items-center space-x-2 cursor-pointer">
+                              <input
+                                type="radio"
+                                value="false"
+                                {...register(question.id, { required: question.required })}
+                                className="text-football-green focus:ring-football-green"
+                              />
+                              <span className="text-white">No</span>
+                            </label>
+                          </div>
+                        )}
+
+                        {question.type === 'checkbox' && question.options && (
+                          <div className="space-y-2">
+                            {question.options.map((option) => (
+                              <label key={option} className="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  value={option}
+                                  {...register(question.id, { required: question.required })}
+                                  className="text-football-green focus:ring-football-green"
+                                />
+                                <span className="text-white">{option}</span>
+                              </label>
+                            ))}
+                          </div>
                         )}
                         
                         {errors[question.id] && (
