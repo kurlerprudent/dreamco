@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { MongoClient } from 'mongodb'
-
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
-const client = new MongoClient(uri)
+import DatabaseConnection from '../../../../lib/database'
 
 export async function GET(request: NextRequest) {
   try {
-    await client.connect()
-    const db = client.db('hiddengems')
+    console.log('Stats API called')
+    const db = await DatabaseConnection.getDb()
+    console.log('Database connected successfully for stats')
     const collection = db.collection('survey_responses')
 
     // Get responses from last 24 hours for real-time stats
@@ -70,12 +68,10 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Real-time stats error:', error)
+    console.error('Stats API error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch real-time stats' },
       { status: 500 }
     )
-  } finally {
-    await client.close()
   }
 }

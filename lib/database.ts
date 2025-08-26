@@ -6,7 +6,9 @@ class DatabaseConnection {
   private static isConnecting = false
 
   private static getUri(): string {
-    const uri = process.env.MONGODB_URI || 'mongodb+srv://prudentkurler8:dExMJ8GI5pJ6Ow6D@cluster0.akbcll1.mongodb.net/hiddengems?retryWrites=true&w=majority&appName=Cluster0'
+    // Hardcoded MongoDB URI for production deployment
+    const uri = 'mongodb+srv://prudentkurler8:dExMJ8GI5pJ6Ow6D@cluster0.akbcll1.mongodb.net/hiddengems?retryWrites=true&w=majority&appName=Cluster0'
+    console.log('🔗 Using hardcoded MongoDB URI for reliable connection')
     return uri
   }
 
@@ -39,10 +41,11 @@ class DatabaseConnection {
       const uri = this.getUri()
       this.client = new MongoClient(uri, {
         maxPoolSize: 10,
-        serverSelectionTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 15000,  // Increased from 5000 to 15000
         socketTimeoutMS: 45000,
         maxIdleTimeMS: 30000,
-        retryWrites: true
+        retryWrites: true,
+        connectTimeoutMS: 15000  // Added connection timeout
       })
       
       await this.client.connect()
