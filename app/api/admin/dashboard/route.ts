@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { MongoClient } from 'mongodb'
-
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
-const client = new MongoClient(uri)
+import DatabaseConnection from '../../../../lib/database'
 
 export async function GET(request: NextRequest) {
   try {
-    await client.connect()
-    const db = client.db('hiddengems')
+    console.log('Admin dashboard API called')
+    const db = await DatabaseConnection.getDb()
+    console.log('Database connected successfully for dashboard')
     const collection = db.collection('survey_responses')
 
     // Get all responses
@@ -67,12 +65,10 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Database error:', error)
+    console.error('Dashboard API error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch dashboard data' },
       { status: 500 }
     )
-  } finally {
-    await client.close()
   }
 }

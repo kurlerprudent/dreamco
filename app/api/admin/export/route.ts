@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { MongoClient } from 'mongodb'
-
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
-const client = new MongoClient(uri)
+import DatabaseConnection from '../../../../lib/database'
 
 export async function GET(request: NextRequest) {
   try {
-    await client.connect()
-        const db = client.db('hiddengems')
+    console.log('Export API called')
+    const db = await DatabaseConnection.getDb()
+    console.log('Database connected successfully for export')
     const collection = db.collection('survey_responses')
 
     // Get all responses
@@ -68,7 +66,5 @@ export async function GET(request: NextRequest) {
       { error: 'Failed to export data' },
       { status: 500 }
     )
-  } finally {
-    await client.close()
   }
 }
